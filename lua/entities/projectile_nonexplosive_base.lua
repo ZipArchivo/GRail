@@ -298,6 +298,8 @@ elseif CLIENT then
 		end
 	end)
 
+	hg.lodgedmodels = hg.lodgedmodels or {}
+
 	function hg.ProjectilesDraw(ent, ply)
 		if !IsValid(arrowasdasd) then
 			arrowasdasd = ClientsideModel("models/z_city/nmrih/items/arrow/ammo_arrow_single.mdl")
@@ -305,30 +307,18 @@ elseif CLIENT then
 		end
 
 		if ent.organism and ent.organism.LodgedEntities then
-			for i, settings in ipairs(ent.organism.LodgedEntities) do
-				ent.organism.lodgedmodels = ent.organism.lodgedmodels or {}
+			for i, settings in ipairs(ent.organism.LodgedEntities) do				
+				local arrow = hg.lodgedmodels[settings.model] or arrowasdasd
 				
-				local arrow = ent.organism.lodgedmodels[i] or arrowasdasd
-
 				if settings.model then
-					if !IsValid(ent.organism.lodgedmodels[i]) then
+					if !IsValid(hg.lodgedmodels[settings.model]) then
 						local model = ClientsideModel(settings.model)
 						model:SetNoDraw(true)
-
-						ent.organism.lodgedmodels[i] = model
-
-						ent:CallOnRemove("removelodged"..i..settings.model, function()
-							if IsValid(model) then
-								model:Remove()
-							end
-						end)
+						
+						hg.lodgedmodels[settings.model] = model
 					end
 					
-					arrow = ent.organism.lodgedmodels[i]
-
-					if arrow:GetModel() != settings.model then
-						arrow:SetModel(settings.model)
-					end
+					arrow = hg.lodgedmodels[settings.model]
 				end
 
 				local mat = ent:GetBoneMatrix(ent:TranslatePhysBoneToBone(settings.PhysBoneID))
