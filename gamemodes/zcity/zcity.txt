@@ -1,8 +1,8 @@
 "zcity"
 {
 	"base"			"base"
-	"title"			"GRail"
+	"title"			"ZCity"
 	"maps"			"^hmcd_|^md_|^mu_|^murder_|^zc|^zb"
 	"menusystem"	"1"
-	"category"		"other"
+	"category"		"pvp"
 }
