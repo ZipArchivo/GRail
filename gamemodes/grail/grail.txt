@@ -1,0 +1,8 @@
+"grail"
+{
+	"base" "zcity"
+	"title" "GRail"
+	"maps" "^.*"
+	"menusystem" "1"
+	"category" "pvp"
+}
